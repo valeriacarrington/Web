@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WEB1.Models.Order>
+
+<h2>Orders</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No orders available.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>File</th>
+                <th>Customer</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderDate.ToShortDateString()</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.FilePath))
+                        {
+                            <a href="@item.FilePath">View File</a>
+                        }
+                        else
+                        {
+                            <span>No File</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Customer != null)
+                        {
+                            @item.Customer.Name
+                        }
+                        else
+                        {
+                            <span>No Customer</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
